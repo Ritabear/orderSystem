@@ -49,7 +49,7 @@ CREATE TABLE order_goods (
 
 
 
-- 嘗試SQL
+- 嘗試SQL:
 ROW_NUMBER() OVER (ORDER BY time DESC)
 name,specification,money,amount
 order_goods.
