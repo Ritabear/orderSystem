@@ -49,17 +49,3 @@ CREATE TABLE order_goods (
 
 
 
-- 嘗試SQL:
-ROW_NUMBER() OVER (ORDER BY time DESC)
-name,specification,money,amount
-order_goods.
-SELECT * from order_goods full join order_records on 'order_goods.records_id' = 'order_records.id';
-121 121
-
-SELECT name,specification,money,amount,records_id from order_goods full join order_records on records_id = order_records.id ORDER BY order_records.time DESC;
-select * from order_records join order_goods;
-select * from order_records as t1 join order_goods as t2 on t1.id = t2.records_id;
-select * from order_records as t1 , order_goods as t2 Where t1.id = t2.records_id;
-
-
-SELECT order_records.* , order_goods.name ,order_goods.specification,order_goods.money,order_goods.amount FROM order_records,order_goods WHERE order_records.id = order_goods.records_id;
