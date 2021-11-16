@@ -2,8 +2,9 @@
 
 require_once './config.php';
 //編寫查詢sql語句
-$sql_rocerds = 'SELECT order_records.* , order_goods.name ,order_goods.specification,order_goods.money,order_goods.amount FROM order_records,order_goods WHERE order_records.id = order_goods.records_id';
-// $sql_rocerds = 'SELECT * from order_records join order_goods;';
+// $sql_rocerds = 'SELECT order_records.* , order_goods.name ,order_goods.specification,order_goods.money,order_goods.amount FROM order_records,order_goods WHERE order_records.id = order_goods.records_id';
+
+$sql_rocerds = 'SELECT * from order_records join order_goods;';
 // echo $sql_rocerds;
 
 //執行查詢操作、處理結果集

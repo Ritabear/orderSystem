@@ -10,6 +10,7 @@ CREATE TABLE goods (id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
 
 CREATE TABLE order_records (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    order_id VARCHAR(20) NOT NULL ,
     time DATETIME default current_timestamp,
     total int);
     
@@ -21,10 +22,10 @@ CREATE TABLE order_goods (
     specification int,
     money int,
     amount int,
-    records_id int
+    records_id VARCHAR(20)
 );
     
-
+unique
 <!-- - table3????
 CREATE TABLE order_goods (
     id int NOT NULL PRIMARY KEY AUTO_INCREMENT,

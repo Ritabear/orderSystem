@@ -119,6 +119,8 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                                 </div>
                                 <div class="row justify-content-around m-3">
                                     <div class="col-7 border text-center p-2">總金額$ : 10000</div>
+                                    <!-- <div class="col-3 border text-center p-2"> <button type="submit" value="Submit"
+                                        id="submit"> 訂單確認</button> </div> -->
                                     <div class="col-3 border text-center p-2"> <button type="submit" value="Submit"
                                             id="submit"> 訂單確認</button> </div>
                                 </div>
@@ -218,8 +220,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <input type ="hidden" name ="amount[]" value="${amount}">
                         <td class="px-1 py-2 col-2 border">${total}</td>
                         <input type ="hidden" name ="total[]" value="${total}">
-                        <input type ="hidden" name ="specification[]" value="${specification}">
-
+                        <input type ="hidden" name ="specification[]" value="${specification}"> 
                         <td class="px-1 py-2 border">
                         <button type="button" class="btn btn-danger">刪除</button></td>
                     </tr>`

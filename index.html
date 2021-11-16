@@ -1,39 +1,67 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
-    <meta charset="utf-8">
-    <title>恭喜，站点创建成功！</title>
-    <style>
-        .container {
-            width: 60%;
-            margin: 10% auto 0;
-            background-color: #f0f0f0;
-            padding: 2% 5%;
-            border-radius: 10px
-        }
-
-        ul {
-            padding-left: 20px;
-        }
-
-            ul li {
-                line-height: 2.3
-            }
-
-        a {
-            color: #20a53a
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>魯豫點單</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
 </head>
+
 <body>
-    <div class="container">
-        <h1>恭喜, 站点创建成功！</h1>
-        <h3>这是默认index.html，本页面由系统自动生成</h3>
-        <ul>
-            <li>本页面在FTP根目录下的index.html</li>
-            <li>您可以修改、删除或覆盖本页面</li>
-            <li>FTP相关信息，请到“面板系统后台 > FTP” 查看</li>
-        </ul>
+    <div class="order">
+        <div class="title">
+            <button>查看報表</button>
+            <button>歷史訂單</button>
+        </div>
+        <div class="list">
+            <table>
+                <tr>
+                    <td>序號</td>
+                    <td>商品</td>
+                    <td>單價</td>
+                    <td>數量</td>
+                    <td>小計</td>
+                    <td><button>刪除</button></td>
+                </tr>
+            </table>
+        </div>
+        <div class="checkout">
+
+        </div>
     </div>
+    <div class="row mt-2">
+        <div class="col-10 m-auto border">
+            <div class="row ">
+                <div class="col border text-center p-3">1</div>
+                <div class="col border text-center p-3">2</div>
+                <div class="col border text-center p-3">3</div>
+            </div>
+            <div class="row">
+                <div class="col border text-center p-3">4</div>
+                <div class="col border text-center p-3">5</div>
+                <div class="col border text-center p-3">6</div>
+            </div>
+            <div class="row">
+                <div class="col border text-center p-3">7</div>
+                <div class="col border text-center p-3">8</div>
+                <div class="col border text-center p-3">9</div>
+            </div>
+            <div class="row">
+                <div class="col border text-center p-3">0</div>
+                <div class="col border text-center p-3"></div>
+                <div class="col border text-center p-3">DEL</div>
+            </div>
+            <div class="row">
+                <div class="col-4 border text-center p-3">交易取消</div>
+                <div class="col-8 border text-center p-3">確認</div>
+            </div>
+        </div>
 </body>
+
 </html>
