@@ -282,7 +282,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <!-- </thead> -->
                     <tbody class="historytbody">
                         <?php
-                        $sql_rocerds = 'SELECT * from order_records join order_goods;';
+                        $sql_rocerds = 'SELECT * from order_goods join order_records on order_goods.order_id = order_records.order_id;';
                         // echo $sql_rocerds;
 
                         //執行查詢操作、處理結果集
@@ -297,7 +297,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         echo '<tr>';
                         echo '<td>'.$i.'</td>';
                         echo '<td>'.$dataHistory[$i]['time'].'</td>';
-                        echo '<td>'.$dataHistory[$i]['id'].'</td>';
+                        echo '<td>'.$dataHistory[$i]['order_id'].'</td>';
                         echo '<td>'.$dataHistory[$i]['name'].'</td>';
                         echo '<td>'.$dataHistory[$i]['money'].'</td>';
                         echo '<td>'.$dataHistory[$i]['amount'].'</td>';
