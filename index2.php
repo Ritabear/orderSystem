@@ -25,113 +25,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <style>
-        /* 右邊滾動 */
-        .scorllRight {
-            overflow: -moz-hidden-unscrollable;
-            height: 99vh;
-            overflow: scroll;
-        }
-
-        .scorllRight::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* 左邊滾動 */
-        .scrollLeft {
-            /* IE */
-            overflow: -moz-hidden-unscrollable;
-            height: 35vh;
-            overflow-y: scroll;
-            display: block;
-        }
-
-        /* chrome */
-
-        .scrollLeft::-webkit-scrollbar {
-            display: none;
-        }
-
-        .gooosTable thead,
-        tbody tr {
-            display: table;
-            width: 100%;
-            table-layout: fixed;
-            border-collapse: collapse;
-            margin: -1px 0 0 0;
-        }
-
-        /* 超出部分... */
-
-        .gooosTable td,
-        .historytbody {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .rightGoods div {
-            width: calc(25% - 16px);
-        }
-
-        /* 樣式 */
-
-        .btnStyle {
-            border: 1px solid transparent;
-            background: #bb2d3b;
-            color: white;
-            border-radius: 5px;
-            padding: 0px 6px;
-        }
-
-        .fz-0 {
-            font-size: 30px;
-            font-weight: bold;
-        }
-
-        .fz-1 {
-            font-size: 26px;
-            font-weight: bold;
-        }
-
-        .active {
-            border: 3px solid #17a2b8 !important;
-        }
-
-        .amountinput {
-            width: 40px;
-            font-size: 13px;
-        }
-
-        /* 彈窗 */
-
-        .historypage {
-            border: 1px solid #e0e0e0;
-            overflow-y: scroll;
-            width: 90vw;
-            height: 90vh;
-            z-index: 10;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: white;
-            display: none;
-        }
-
-        .historythead {
-            background: #17a2b8 !important;
-            color: white;
-            font-weight: bold;
-            border: 1px solid transparent;
-        }
-
-        .modal-header {
-            background: white;
-            z-index: 10;
-        }
-
-        </style>
-
+        <link rel="stylesheet" href="./css/index.css">
     </head>
 
     <body>
@@ -153,7 +47,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <div class="col">
                             <div class="row justify-content-around m-3">
                                 <div class="col-4 border text-center p-2 clearcache">清緩存用</div>
-                                <div class="col-4 border text-center p-2"> <a href="#">查看報表</a> </div>
+                                <div class="col-4 border text-center p-2">查看報表</div>
                                 <!-- <div class="col-4 border text-center p-2 historyOrder"> <a href="history.php">歷史訂單</a></div> -->
                                 <div class="col-4 border text-center p-2 historyOrder">歷史訂單</div>
                             </div>
@@ -218,8 +112,8 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <div class="col scorllRight h5">
                     <!-- 迴圈處 -->
                     <?php
-                        $all_type = ['鴨肉類', '豬肉類', '雞肉類', '其他類'];
-                        $all_type_switch = ['duck', 'pork', 'chicken', 'others'];
+                        $all_type = ['鴨肉類', '豬肉類', '飲料', '雞肉類', '其他類'];
+                        $all_type_switch = ['duck', 'pork', 'drink', 'chicken', 'others'];
                         for ($i = 0; $i < count($all_type); ++$i) {
                             echo '<div>';
                             echo '<div class="h3 m-2 p-3 text-center bg-info text-white">';
@@ -266,12 +160,12 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                 <table class="table table-hover table-striped text-center tablehead mb-0">
                     <!-- <thead>  加thead會跑版 原因不明所以關掉 -->
                     <tr class="historythead">
-                        <td>序號</th>
-                        <td>日期</td>
-                        <td>單號</td>
+                        <td class="w-10">序號</th>
+                        <td class="w-20">日期</td>
+                        <td class="w-15">單號</td>
                         <td>商品</td>
-                        <td>項目單價</td>
-                        <td>數量</td>
+                        <td class="w-10">項目單價</td>
+                        <td class="w-10">數量</td>
                         <td>訂單總金額</td>
                     </tr>
                 </table>
@@ -282,7 +176,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <!-- </thead> -->
                     <tbody class="historytbody">
                         <?php
-                        $sql_rocerds = 'SELECT * from order_goods join order_records on order_goods.order_id = order_records.order_id;';
+                        $sql_rocerds = 'SELECT * from order_goods join order_records on order_goods.records_id = order_records.order_id;';
                         // echo $sql_rocerds;
 
                         //執行查詢操作、處理結果集
@@ -295,12 +189,12 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         // var_dump($dataHistory);
                     for ($i = 0; $i < count($dataHistory); ++$i) {
                         echo '<tr>';
-                        echo '<td>'.$i.'</td>';
-                        echo '<td>'.$dataHistory[$i]['time'].'</td>';
-                        echo '<td>'.$dataHistory[$i]['order_id'].'</td>';
+                        echo '<td class="w-10">'.$i.'</td>';
+                        echo '<td class="w-20">'.$dataHistory[$i]['time'].'</td>';
+                        echo '<td class="w-15">'.$dataHistory[$i]['order_id'].'</td>';
                         echo '<td>'.$dataHistory[$i]['name'].'</td>';
-                        echo '<td>'.$dataHistory[$i]['money'].'</td>';
-                        echo '<td>'.$dataHistory[$i]['amount'].'</td>';
+                        echo '<td <td class="w-10">'.$dataHistory[$i]['money'].'</td>';
+                        echo '<td <td class="w-10">'.$dataHistory[$i]['amount'].'</td>';
                         echo '<td>'.$dataHistory[$i]['total'].'</td>';
                         echo '</tr>';
                     }
@@ -310,300 +204,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
             </div>
         </div>
 
-        <script>
-        // 序號 
-        let number = 0
-        // 總金額 
-        let allmoney = 0
-        // 資料物件 
-        let allOrder = {}
-        let goodsOrder = []
-        // 數量變更 
-        let countChange = ""
-        let countinit = ""
-        let countTmoney = ""
-        let countPrice = ""
-        let countOrder = ""
-        // 鍵盤輸入 
-        let kbNumber = "";
-        // 右邊商品點擊 
-        // $(".scorllRight").on("click", ".goodsTitle", function() { 
-        $(".scorllRight").on("click", ".goodsTitle", function() {
-            goodsOrder = []
-            // console.log($(this).html()) 
-            let goodsName = $(this).data("name")
-            // console.log(goodsName) 
-            let goodsMoney = $(this).data("money")
-            // console.log(goodsMoney) 
-            let specification = $(this).data("specification")
-            // console.log(specification) 
-            let amount = 1
-            let total = goodsMoney * amount
-            allmoney += total
-            number += 1
-            // 存入陣列和物件 
-            goodsOrder.push(goodsName, +goodsMoney, +amount, +total, +specification)
-            allOrder[number] = goodsOrder
-            console.log(allOrder)
-
-            //渲染 
-            $(".allmoney>span").html(allmoney)
-            $(".scrollLeft").append(
-                `<tr class="ordertrstyle ordertr${number}"> 
-                    <td class="px-1 py-2 border countOrder orderNumber">${number}</td> 
-                    <td class="px-1 py-2 w-25 border goodsName">${goodsName}</td> 
-                    <td class="px-1 py-2 border goodsMoney">${goodsMoney}</td> 
-                    <td class="px-1 py-2 border amount"><input class="amountinput amountinput${number}" type="number" value="1" disabled /></td> 
-                    <td class="px-1 py-2 w-25 border totalPrice">${total}</td> 
-                    <td class="px-1 py-2 border"> 
-                    <button type="button" class="btnStyle deltd${number}">刪除</button></td> 
-                </tr>`
-                // winnie 
-                // `<tr> 
-                //         <td class="px-1 py-2 border">${number}</td> 
-                //         <td class="px-1 py-2 col-4 border" >${goodsName}</td> 
-                //         <input type ="hidden" name ="goodsName[]" value="${goodsName}"> 
-                //         <td class="px-1 py-2 border">${goodsMoney}</td> 
-                //         <input type ="hidden" name ="goodsMoney[]" value="${goodsMoney}"> 
-                //         <td class="px-1 py-2 border amount" >${amount}</td> 
-                //         <input type ="hidden" name ="amount[]" value="${amount}"> 
-                //         <td class="px-1 py-2 col-2 border">${total}</td> 
-                //         <input type ="hidden" name ="total[]" value="${total}"> 
-                //         <input type ="hidden" name ="specification[]" value="${specification}"> 
-                //         <td class="px-1 py-2 border"> 
-                //         <button type="button" class="btnStyle">刪除</button></td> 
-                //     </tr>` 
-            )
-
-            let idList = Object.keys(allOrder);
-
-            // 刪除點擊 
-            $(".deltd" + number).on("click", function() {
-                let reducer = []
-                let getnumber = ""
-                let getnumber2 = ""
-                getnumber = $(this).parent().siblings(".orderNumber")
-                getnumber2 = getnumber.html()
-                // 刪掉資料物件裡的項 
-                delete allOrder[getnumber2]
-                console.log(allOrder)
-                // 刪除畫面 
-                $(this).parent().parent().remove()
-                if (Object.keys(allOrder).length != 0) {
-                    // 總金額重寫 
-                    for (let k in allOrder) {
-                        reducer.push(allOrder[k][3])
-                    }
-                    const reTotal = reducer.reduce((pre, cur) => pre + cur)
-                    // console.log(reTotal) 
-                    allmoney = reTotal
-                    $(".allmoney>span").html(allmoney)
-                } else {
-                    allmoney = 0
-                    $(".allmoney>span").html(allmoney)
-                }
-            })
-
-            // 數量點擊 
-            $(".ordertr" + number).on("click", function() {
-                countChange = ""
-                countinit = ""
-                countTmoney = ""
-                countPrice = ""
-                countOrder = ""
-                kbNumber = ""
-                $(this).addClass("active").siblings().removeClass("active")
-                // $(this).find(".amountinput").focus() 
-                countinit = Number($(this).find(".amountinput").val())
-                countChange = $(this).find(".amountinput")
-                countTmoney = $(this).find(".totalPrice")
-                countPrice = Number($(this).find(".goodsMoney").html())
-                countOrder = $(this).find(".countOrder").html()
-                // console.log(countinit) 
-                // console.log(countChange) 
-                // console.log(countTmoney) 
-                // console.log(countPrice) 
-                // console.log(countOrder) 
-            })
-
-            // 監聽變化(棄用) 
-            // $(".amountinput" + number).on("input", function(){ 
-            //     console.log("aaaaaaaaa") 
-            // }) 
-            // 訂單確認(棄用) 
-            // $("#submit").click(function() { 
-            // goodsOrder = [] 
-            // sumPrice = 0 
-            // for(i=0; i< number; i++){ 
-            //     goodsOrder = [] 
-            //     let namegd = $(".ordertr").find(".goodsName")[i] 
-            //     let namegdf = namegd.innerHTML 
-            //     let moneygd = $(".ordertr").find(".goodsMoney")[i] 
-            //     let moneygdf = moneygd.innerHTML 
-            //     let amountgd = $(".ordertr").find(".amount")[i] 
-            //     let amountgdf = amountgd.innerHTML 
-            // let totalPrice = $(".ordertr").find(".totalPrice")[0] 
-            //     let totalPricef = totalPrice.innerHTML 
-            //     goodsOrder.push(namegdf, moneygdf, amountgdf, totalPricef) 
-            //     // console.log(goodsOrder) 
-            //     allOrder[i] = goodsOrder 
-            //     // console.log(allOrder) 
-            //     sumPrice += Number(totalPrice.innerHTML) 
-            // } 
-            // console.log(totalPrice) 
-            // console.log(sumPrice) 
-            // $.ajax({ 
-            //     type: "POST", //呼叫模式 
-            //     url: "create_order.php", //呼叫的網址 
-            //     data: { //這裡發送要傳遞的資料，格式=> 參數名稱:內容 
-            //         "goodsName": goodsName, 
-            //         "goodsMoney": goodsMoney, 
-            //     }, 
-            //     // dataType: "text", //回傳的資料型態 
-            //     success: function() { 
-            //         // alert("sucess"); 
-            //         console.log(goodsName); 
-            //     }, 
-            //     error: function() { 
-            //         console.log("fail"); 
-            //     } 
-            // }) 
-            // }) 
-        })
-
-        // 鍵盤點擊 
-        $(".numberbtnNum").on('click', function() {
-            let reducer2 = []
-            kbNumber += ($(this).html())
-            if (countChange != "") {
-                countChange.val(kbNumber)
-                let muti = countPrice * kbNumber
-                countTmoney.html(muti)
-                allOrder[countOrder][2] = Number(kbNumber)
-                allOrder[countOrder][3] = muti
-                // 總金額重寫 
-                for (let k in allOrder) {
-                    reducer2.push(allOrder[k][3])
-                }
-                const reTotal2 = reducer2.reduce((pre, cur) => pre + cur)
-                // console.log(reTotal) 
-                allmoney = reTotal2
-                $(".allmoney>span").html(allmoney)
-            }
-        })
-
-        // 數量del 
-        $(".countDel").on('click', function() {
-            if (countChange != "") {
-                kbNumber = ""
-                let reducer3 = []
-                countChange.val(1)
-                let muti = countPrice * 1
-                countTmoney.html(muti)
-                allOrder[countOrder][2] = 1
-                allOrder[countOrder][3] = muti
-                // 總金額重寫 
-                for (let k in allOrder) {
-                    reducer3.push(allOrder[k][3])
-                }
-                const reTotal3 = reducer3.reduce((pre, cur) => pre + cur)
-                allmoney = reTotal3
-                $(".allmoney>span").html(allmoney)
-            }
-        })
-
-        // 交易取消 
-        $(".cancelAll").on('click', function() {
-            $(".scrollLeft").html("")
-            number = 0
-            allmoney = 0
-            $(".allmoney>span").html(allmoney)
-            allOrder = {}
-            goodsOrder = []
-            countChange = ""
-            countinit = ""
-            countTmoney = ""
-            countPrice = ""
-            countOrder = ""
-            kbNumber = "";
-        })
-
-        // 確認 (目前無作用) 
-        $(".confirm").click(function() {
-            // $(".scrollLeft").find("tr").removeClass("active") 
-            console.log(allOrder)
-        })
-        // 訂單確認 
-        $("#submit").click(function() {
-            let jsonorder = JSON.stringify(allOrder)
-            $.ajax({
-                type: "POST", //呼叫模式 
-                // dataType: 'json', 
-                dataType: 'json',
-                // dataType: 'multipart/form-data',//回傳的資料型態 //返回數據格式 
-                // contentType: "application/json", 
-                url: "create_order.php", //呼叫的網址 
-                data: { //這裡發送要傳遞的資料，格式=> 參數名稱:內容 
-                    "order": jsonorder,
-                },
-                // data: JSON.stringify(jsonorder), 
-                // //res 回傳 
-                success: function(req, res) {
-                    console.log(req, res);
-                    alert("sucess");
-                    // window.location.href = '/Orderfood/create_order.php'; 
-                },
-
-                error: function(err) {
-                    console.log(err);
-                    console.log('出現錯誤');
-                    // window.location.href = '/Orderfood/create_order.php'; 
-                }
-
-            })
-
-            // .then(() => {
-
-            //     window.location.href = '/Orderfood/create_order.php';
-
-            // })
-
-            $(".scrollLeft").html("")
-            number = 0
-            allmoney = 0
-            $(".allmoney>span").html(allmoney)
-            allOrder = {}
-            goodsOrder = []
-            countChange = ""
-            countinit = ""
-            countTmoney = ""
-            countPrice = ""
-            countOrder = ""
-            kbNumber = "";
-
-        })
-
-        // 歷史訂單 
-        $(".historyOrder").on("click", function() {
-            $(".historypage").show();
-            // api拿資料 
-        })
-
-        $(".close").click(function() {
-            $(".historypage").hide();
-        })
-
-        $(".historypage").click(function(e) {
-            e.stopPropagation();
-        });
-
-        // 清緩存用
-
-        $(".clearcache").on("click", function() {
-            Toyun.clearCache();
-            Toyun.loadMainView("https://pos.raybii.com/");
-        })
-        </script>
+        <script src="./js/index.js"></script>
 
     </body>
 
