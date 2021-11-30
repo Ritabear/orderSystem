@@ -22,7 +22,7 @@ CREATE TABLE order_goods (
     specification int,
     money int,
     amount int,
-    record_id VARCHAR(20)
+    order_id VARCHAR(20)
 );
     
 unique

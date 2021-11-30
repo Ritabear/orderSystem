@@ -167,6 +167,8 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         <td class="w-10">項目單價</td>
                         <td class="w-10">數量</td>
                         <td>訂單總金額</td>
+                        <td>刪除訂單</td>
+
                     </tr>
                 </table>
 
@@ -176,7 +178,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                     <!-- </thead> -->
                     <tbody class="historytbody">
                         <?php
-                        $sql_rocerds = 'SELECT * from order_goods join order_records on order_goods.records_id = order_records.order_id;';
+                        $sql_rocerds = 'SELECT * from order_goods join order_records on order_goods.order_id = order_records.order_id ORDER BY `order_records`.`time` DESC;';
                         // echo $sql_rocerds;
 
                         //執行查詢操作、處理結果集
@@ -196,6 +198,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
                         echo '<td <td class="w-10">'.$dataHistory[$i]['money'].'</td>';
                         echo '<td <td class="w-10">'.$dataHistory[$i]['amount'].'</td>';
                         echo '<td>'.$dataHistory[$i]['total'].'</td>';
+                        echo '<td ><button type="button" class="btn btn-danger historyDel" data-order='.$dataHistory[$i]['order_id'].'>刪除</button></td>';
                         echo '</tr>';
                     }
                 ?>
@@ -205,6 +208,7 @@ $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
         </div>
 
         <script src="./js/index.js"></script>
+
 
     </body>
 

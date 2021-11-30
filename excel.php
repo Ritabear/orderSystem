@@ -3,7 +3,7 @@
 require_once './config.php';
 
 //編寫查詢sql語句
-
+// SELECT * from order_goods join order_records on order_goods.order_id = order_records.order_id ORDER BY `order_records`.`time` DESC
 $sql_rocerds = 'SELECT * from order_records as t1 join order_goods as t2 on t1.order_id = t2.order_id;';
 // echo $sql_rocerds;
 

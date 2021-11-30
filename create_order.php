@@ -10,8 +10,8 @@ if (isset($_POST['order'])) {
     // echo count($arr);
 
     // $goodsName = [];
-    for ($i = 1; $i < count($arr) + 1; ++$i) {
-        $goodsName[] = $arr[$i][0];
+    for ($i = 0; $i < count($arr); ++$i) {
+        $goodsName[] = $arr[$i][0] ? $arr[$i][0] : '';
         // 單價
         $goodsMoney[] = $arr[$i][1];
         $goodsAmount[] = $arr[$i][2];
@@ -54,7 +54,7 @@ if (isset($_POST['order'])) {
         }
 
         //寫進order_goods做訂單內容紀錄
-        $sql = 'INSERT INTO order_goods(name,specification,money,amount,records_id) VALUES(?,?, ?,?, ?) '; //每個商品
+        $sql = 'INSERT INTO order_goods(name,specification,money,amount,order_id) VALUES(?,?, ?,?, ?) '; //每個商品
         //預處理SQL模板
         $stmt = mysqli_prepare($link, $sql);
 

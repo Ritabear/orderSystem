@@ -14,10 +14,24 @@ let countPrice = ""
 let countOrder = ""
     // 鍵盤輸入 
 let kbNumber = "";
+//寫在外面為了全域用 寫在裡面作用域裡面，不污染=>自己會弄混
+
+
+//var 宣告少用，有汙染危險
+
 // 右邊商品點擊 
+//動態渲染 不可以寫L178 的click形式
+//on 與click 的影響，寫成下面要原本節點就存在(靜態才可)   綁結點還在渲染就沒辦法綁到
+//on 寫法綁在原本就存在的地方，下面就可以寫事件綁動態產生節點.goodsTitle
+//動態:php ajax 渲染出來的DOM 結構，靜態原本就寫在html
+
+//每次做一個點擊下面動作重新
 $(".scorllRight").on("click", ".goodsTitle", function() {
+    //資料處理
+    //沒清空陣列內無線陣列 陣列處理，顯示console 物件
     goodsOrder = []
         // console.log($(this).html()) 
+        // data-name 才用.data() 這個data-屬性固定
     let goodsName = $(this).data("name")
         // console.log(goodsName) 
     let goodsMoney = $(this).data("money")
@@ -29,13 +43,19 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
     allmoney += total
     number += 1
         // 存入陣列和物件 
+        //num() == +
     goodsOrder.push(goodsName, +goodsMoney, +amount, +total, +specification)
     allOrder[number] = goodsOrder
     console.log(allOrder)
 
-    //渲染 
+
+    // 另一個方法渲染完再抓資料進行處理
+
+    //渲染:畫面呈現 
+    //<div class="col-7 border text-center p-2 allmoney font-weight-bold">總金額$ :<span>0</span> </div>  下一層的span
     $(".allmoney>span").html(allmoney)
     $(".scrollLeft").append(
+        //一般寫法  vs框架不一樣
         `<tr class="ordertrstyle ordertr${number}"> 
                     <td class="px-1 py-2 border countOrder orderNumber">${number}</td> 
                     <td class="px-1 py-2 w-25 border goodsName">${goodsName}</td> 
@@ -62,14 +82,18 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
         //     </tr>` 
     )
 
-    let idList = Object.keys(allOrder);
+    // let idList = Object.keys(allOrder);
 
     // 刪除點擊 
+    // deltd${number}">刪除
     $(".deltd" + number).on("click", function() {
         let reducer = []
         let getnumber = ""
         let getnumber2 = ""
+            // $(this) = ".deltd" + number    拿到parent() =<td> </td>  siblings   .orderNumber classneme: td.px-1.py-2.border.countOrder.orderNumber
         getnumber = $(this).parent().siblings(".orderNumber")
+            // console.log(getnumber)
+            // orderNumber">${number}</td>  的序號
         getnumber2 = getnumber.html()
             // 刪掉資料物件裡的項 
         delete allOrder[getnumber2]
@@ -112,50 +136,6 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
             // console.log(countPrice) 
             // console.log(countOrder) 
     })
-
-    // 監聽變化(棄用) 
-    // $(".amountinput" + number).on("input", function(){ 
-    //     console.log("aaaaaaaaa") 
-    // }) 
-    // 訂單確認(棄用) 
-    // $("#submit").click(function() { 
-    // goodsOrder = [] 
-    // sumPrice = 0 
-    // for(i=0; i< number; i++){ 
-    //     goodsOrder = [] 
-    //     let namegd = $(".ordertr").find(".goodsName")[i] 
-    //     let namegdf = namegd.innerHTML 
-    //     let moneygd = $(".ordertr").find(".goodsMoney")[i] 
-    //     let moneygdf = moneygd.innerHTML 
-    //     let amountgd = $(".ordertr").find(".amount")[i] 
-    //     let amountgdf = amountgd.innerHTML 
-    // let totalPrice = $(".ordertr").find(".totalPrice")[0] 
-    //     let totalPricef = totalPrice.innerHTML 
-    //     goodsOrder.push(namegdf, moneygdf, amountgdf, totalPricef) 
-    //     // console.log(goodsOrder) 
-    //     allOrder[i] = goodsOrder 
-    //     // console.log(allOrder) 
-    //     sumPrice += Number(totalPrice.innerHTML) 
-    // } 
-    // console.log(totalPrice) 
-    // console.log(sumPrice) 
-    // $.ajax({ 
-    //     type: "POST", //呼叫模式 
-    //     url: "create_order.php", //呼叫的網址 
-    //     data: { //這裡發送要傳遞的資料，格式=> 參數名稱:內容 
-    //         "goodsName": goodsName, 
-    //         "goodsMoney": goodsMoney, 
-    //     }, 
-    //     // dataType: "text", //回傳的資料型態 
-    //     success: function() { 
-    //         // alert("sucess"); 
-    //         console.log(goodsName); 
-    //     }, 
-    //     error: function() { 
-    //         console.log("fail"); 
-    //     } 
-    // }) 
-    // }) 
 })
 
 // 鍵盤點擊 
@@ -226,15 +206,14 @@ $("#submit").click(function() {
         arrayOrder = Object.keys(allOrder).map(key => {
             return allOrder[key]
         })
-        operArr = {...arrayOrder}
+        operArr = {...arrayOrder }
         let jsonorder = JSON.stringify(operArr)
 
         $.ajax({
             type: "POST", //呼叫模式 
-            // dataType: 'json', 
             dataType: 'json',
             // dataType: 'multipart/form-data',//回傳的資料型態 //返回數據格式 
-            // contentType: "application/json", 
+            // contentType: 'application/json; charset=utf-8',
             url: "create_order.php", //呼叫的網址 
             data: { //這裡發送要傳遞的資料，格式=> 參數名稱:內容 
                 "order": jsonorder,
@@ -295,4 +274,24 @@ $(".clearcache").on("touchend mouseup", function() {
 $(".clearcache").on("click", function() {
     Toyun.clearCache();
     Toyun.loadMainView("https://pos.raybii.com/");
+})
+
+
+//歷史訂單刪除功能
+
+$(".historyDel").on("click", function() {
+    let hisDel = $(this).data("order")
+
+    $.post("./delete_order.php", {
+        "order_id": hisDel
+    }, function(res) {
+
+        if (res === "1") {
+            let orderDOM = $('[data-order="' + hisDel + '"]').parent().parent()
+            orderDOM.remove()
+        } else {
+            alert("刪除失敗")
+        }
+
+    })
 })
