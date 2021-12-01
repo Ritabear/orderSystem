@@ -65,6 +65,7 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
                     <td class="px-1 py-2 border"> 
                     <button type="button" class="btnStyle deltd${number}">刪除</button></td> 
                 </tr>`
+                
         // winnie 
         // `<tr> 
         //         <td class="px-1 py-2 border">${number}</td> 
@@ -105,6 +106,7 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
             for (let k in allOrder) {
                 reducer.push(allOrder[k][3])
             }
+            // 前面pre 現在數字cur
             const reTotal = reducer.reduce((pre, cur) => pre + cur)
                 // console.log(reTotal) 
             allmoney = reTotal
@@ -116,7 +118,9 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
     })
 
     // 數量點擊 
-    $(".ordertr" + number).on("click", function() {
+    $(".ordertr" + number).on("click", function () {
+        // 做清除的動作 因為每次點都不一樣
+        // 這邊抓的資料可以到全域，但每次要記得清除
         countChange = ""
         countinit = ""
         countTmoney = ""
@@ -124,7 +128,7 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
         countOrder = ""
         kbNumber = ""
         $(this).addClass("active").siblings().removeClass("active")
-            // $(this).find(".amountinput").focus() 
+            // $(this).find(".amountinput").focus() //平板自己跳打字鍵盤
         countinit = Number($(this).find(".amountinput").val())
         countChange = $(this).find(".amountinput")
         countTmoney = $(this).find(".totalPrice")
@@ -141,6 +145,7 @@ $(".scorllRight").on("click", ".goodsTitle", function() {
 // 鍵盤點擊 
 $(".numberbtnNum").on('click', function() {
     let reducer2 = []
+    // 這邊是str 數字會直接加
     kbNumber += ($(this).html())
     if (countChange != "") {
         countChange.val(kbNumber)
